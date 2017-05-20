@@ -1,22 +1,31 @@
 CC=gcc
-TARGET=build/math.a
+OUTPUT_DIR=build
+SRC_DIR=src
+TARGET=$(OUTPUT_DIR)/math.a
+COMPILE=$(CC) -c -o $@ $^
 
 all:postbuild
 
 postbuild:build
-	rm build/*.o
+	rm $(OUTPUT_DIR)/*.o
 
 build:prebuild
 	@$(MAKE) $(TARGET)
 
 prebuild:clean
-	mkdir build
+	mkdir $(OUTPUT_DIR)
 
-$(TARGET):build/math.o
+$(TARGET):$(OUTPUT_DIR)/Vector.o $(OUTPUT_DIR)/Circle.o $(OUTPUT_DIR)/Rectangle.o
 	ar rcs $@ $^
 
-build/math.o:src/*.cpp
-	$(CC) -c -o $@ $^
+$(OUTPUT_DIR)/Vector.o:$(SRC_DIR)/Vector.cpp
+	$(COMPILE)
+
+$(OUTPUT_DIR)/Circle.o:$(SRC_DIR)/Circle.cpp
+	$(COMPILE)
+
+$(OUTPUT_DIR)/Rectangle.o:$(SRC_DIR)/Rectangle.cpp
+	$(COMPILE)
 
 clean:
 	rm -rf build
