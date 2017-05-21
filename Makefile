@@ -28,4 +28,4 @@ $(OUTPUT_DIR)/Rectangle.o:$(SRC_DIR)/Rectangle.cpp
 	$(COMPILE)
 
 clean:
-	rm -rf build
+	rm -rf $(OUTPUT_DIR)
